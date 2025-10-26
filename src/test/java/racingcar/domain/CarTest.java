@@ -12,6 +12,6 @@ public class CarTest {
     void Car_Start_Position_Is_Zero() {
 
         Car car = new Car("won");
-        assertThat(car.position).isEqualTo(0);
+        assertThat(car.getPosition()).isEqualTo(0);
     }
 }
