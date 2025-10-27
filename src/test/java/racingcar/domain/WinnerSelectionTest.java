@@ -9,6 +9,7 @@ import racingcar.dto.CarGameState;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class WinnerSelectionTest {
+    List<List<CarGameState>> carGameStates;
 
     @DisplayName("최대 위치를 반환한다.")
     @Test
@@ -30,7 +31,8 @@ class WinnerSelectionTest {
                 new CarGameState("woni", 2),
                 new CarGameState("jun", 1)
         );
-        List<String> winners = WinnerSelection.selectByMaxPosition(carGameState);
+        carGameStates = List.of(carGameState);
+        List<String> winners = WinnerSelection.selectByMaxPosition(carGameStates);
         assertThat(winners).containsExactly("pobi");
     }
 
@@ -42,7 +44,8 @@ class WinnerSelectionTest {
                 new CarGameState("woni", 3),
                 new CarGameState("jun",  1)
         );
-        List<String> winners = WinnerSelection.selectByMaxPosition(carGameState);
+        carGameStates = List.of(carGameState);
+        List<String> winners = WinnerSelection.selectByMaxPosition(carGameStates);
         assertThat(winners).containsExactly("pobi", "woni");
     }
 }
