@@ -6,8 +6,7 @@ import racingcar.dto.CarGameState;
 public class OutputView {
 
     public void printExecutionResultHeader() {
-        System.out.println();
-        System.out.println("실행 결과");
+        System.out.println(OutputMessage.RESULT_HEADER);
     }
 
     public void printRoundResult(List<CarGameState> roundState) {
