@@ -2,12 +2,15 @@ package racingcar.domain;
 
 public class Car {
 
+    private static final int STARTING_POSITION = 0;
+    private static final int MOVE_INCREMENT = 1;
+
     private final Name name;
     private int position;
 
     public Car(String name) {
         this.name = Name.of(name);
-        this.position = 0;
+        this.position = STARTING_POSITION;
     }
 
     public String getName() {
@@ -20,7 +23,7 @@ public class Car {
 
     public void moveIf(boolean moveCondition) {
         if (moveCondition) {
-            position += 1;
+            position += MOVE_INCREMENT;
         }
     }
 }

@@ -2,6 +2,8 @@ package racingcar.domain;
 
 public class ThresholdMoveStrategy implements MoveStrategy {
 
+    private static final int MOVE_THRESHOLD = 4;
+
     private final NumberPicker picker;
 
     public ThresholdMoveStrategy(NumberPicker picker) {
@@ -10,6 +12,6 @@ public class ThresholdMoveStrategy implements MoveStrategy {
 
     @Override
     public boolean shouldMove() {
-        return picker.pick() >= 4;
+        return picker.pick() >= MOVE_THRESHOLD;
     }
 }
