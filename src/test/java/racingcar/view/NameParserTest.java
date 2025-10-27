@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-class NameParsingTest {
+class NameParserTest {
 
     @DisplayName("쉼표로 분리할 때 연속 쉼표는 빈 항목을 보존한다")
     @Test
