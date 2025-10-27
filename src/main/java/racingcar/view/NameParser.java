@@ -1,5 +1,7 @@
 package racingcar.view;
 
+import racingcar.error.ErrorMessage;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,7 +10,7 @@ public final class NameParser {
 
     public static List<String> parseNames(String raw) {
         if (raw == null) {
-            throw new IllegalArgumentException("ERROR: 입력값은 NULL일 수 없습니다.");
+            throw new IllegalArgumentException(ErrorMessage.NAME_NULL.toString());
         }
 
         // 빈 항목 보존, 공백 변형 금지

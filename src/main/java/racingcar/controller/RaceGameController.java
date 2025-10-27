@@ -1,5 +1,7 @@
 package racingcar.controller;
 
+import racingcar.error.ErrorMessage;
+
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
@@ -51,7 +53,7 @@ public class RaceGameController {
     private void validateNoDuplicates(List<String> carNames) {
         Set<String> uniqueNames = new HashSet<>(carNames);
         if (uniqueNames.size() < carNames.size()) {
-            throw new IllegalArgumentException("ERROR: 자동차 이름은 중복될 수 없습니다.");
+            throw new IllegalArgumentException(ErrorMessage.DUPLICATE_CAR_NAMES.toString());
         }
     }
 }

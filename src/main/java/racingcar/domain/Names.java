@@ -1,5 +1,7 @@
 package racingcar.domain;
 
+import racingcar.error.ErrorMessage;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +22,7 @@ public final class Names {
         }
 
         if (uniqueNames.size() < names.size()) {
-            throw new IllegalArgumentException("ERROR: 자동차 이름은 중복될 수 없습니다.");
+            throw new IllegalArgumentException(ErrorMessage.DUPLICATE_CAR_NAMES.toString());
         }
     }
 

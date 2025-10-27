@@ -1,5 +1,7 @@
 package racingcar.domain;
 
+import racingcar.error.ErrorMessage;
+
 import java.util.Objects;
 
 public final class Name {
@@ -12,20 +14,20 @@ public final class Name {
     }
 
     public static Name of(String raw) {
-        Objects.requireNonNull(raw, "ERROR: 자동차 이름은 NULL일 수 없습니다.");
+        Objects.requireNonNull(raw, ErrorMessage.NAME_NULL.toString());
 
         if (raw.isEmpty()) {
-            throw new IllegalArgumentException("ERROR: 이름은 빈 문자열이면 안됩니다.");
+            throw new IllegalArgumentException(ErrorMessage.NAME_EMPTY.toString());
         }
 
         for (int i = 0; i < raw.length(); i++) {
             if (Character.isWhitespace(raw.charAt(i))) {
-                throw new IllegalArgumentException("ERROR: 공백이 포함되면 안됩니다.");
+                throw new IllegalArgumentException(ErrorMessage.NAME_CONTAINS_WHITESPACE.toString());
             }
         }
 
         if (raw.length() > MAX_LEN) {
-            throw new IllegalArgumentException("ERROR: 자동차 이름은 5글자 이하여야 합니다.");
+            throw new IllegalArgumentException(ErrorMessage.NAME_TOO_LONG.toString());
         }
 
         return new Name(raw);

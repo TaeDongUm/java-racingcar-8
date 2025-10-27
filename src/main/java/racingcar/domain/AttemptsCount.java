@@ -1,5 +1,7 @@
 package racingcar.domain;
 
+import racingcar.error.ErrorMessage;
+
 public final class AttemptsCount {
     private static final int MIN_ATTEMPTS = 1;
 
@@ -11,7 +13,7 @@ public final class AttemptsCount {
 
     public static AttemptsCount of(int value) {
         if (value < MIN_ATTEMPTS) {
-            throw new IllegalArgumentException("ERROR: 이동 횟수는 1 이상이어야 합니다.");
+            throw new IllegalArgumentException(ErrorMessage.ATTEMPTS_COUNT_INVALID_RANGE.toString());
         }
         return new AttemptsCount(value);
     }
