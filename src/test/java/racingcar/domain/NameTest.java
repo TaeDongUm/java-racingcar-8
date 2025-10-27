@@ -35,19 +35,22 @@ class NameTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("이름에 공백 문자가 하나라도 포함되면 예외가 발생한다(내부/앞/뒤 포함)")
+    @DisplayName("이름에 공백 문자가 하나라도 포함되면 예외가 발생한다(내부 공백만 해당)")
     @Test
-    void any_Whitespace_Is_Invalid() {
+    void internal_Whitespace_Is_Invalid() {
         assertThatThrownBy(() -> Name.of("po bi"))   // 내부 공백
-                .isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Name.of(" pobi"))   // 앞 공백
-                .isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Name.of("pobi "))   // 뒤 공백
                 .isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> Name.of("po\tbi"))  // 탭
                 .isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> Name.of("po\nbi"))  // 개행
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("이름의 앞뒤 공백은 제거된다")
+    @Test
+    void name_With_Leading_Trailing_Whitespace_Is_Trimmed() {
+        Name name = Name.of("  pobi  ");
+        assertThat(name.value()).isEqualTo("pobi");
     }
 
 

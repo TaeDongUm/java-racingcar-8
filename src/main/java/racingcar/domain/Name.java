@@ -15,6 +15,7 @@ public final class Name {
 
     public static Name of(String raw) {
         Objects.requireNonNull(raw, ErrorMessage.NAME_NULL.toString());
+        raw = raw.trim();
 
         if (raw.isEmpty()) {
             throw new IllegalArgumentException(ErrorMessage.NAME_EMPTY.toString());
