@@ -29,17 +29,16 @@ public class RaceGameController {
     }
 
     public void run() {
-        List<String> carNames = NameParser.parseNames(inputView.inputCarName());
-        validateNoDuplicates(carNames);
-        int attempts = AttemptsParser.parseAttempts(inputView.inputAttempts());
+        List<String> carNames = readCarNames();
+        int attempts = readAttemptsCount();
 
-        List<Car> cars = carNames.stream()
-                .map(Car::new)
-                .collect(Collectors.toList());
+        List<Car> cars = createCars(carNames);
+        RacingGame racingGame = setupGame(cars);
 
-        MoveStrategy moveStrategy = new ThresholdMoveStrategy(new RandomNumberPicker());
-        RacingGame racingGame = new RacingGame(cars, moveStrategy);
+        runAndDisplayGame(racingGame, attempts);
+    }
 
+    private void runAndDisplayGame(RacingGame racingGame, int attempts) {
         outputView.printExecutionResultHeader();
         racingGame.raceStart(attempts);
 
@@ -48,6 +47,27 @@ public class RaceGameController {
 
         List<String> winners = WinnerSelection.selectByMaxPosition(gameHistory);
         outputView.printWinners(winners);
+    }
+
+    private RacingGame setupGame(List<Car> cars) {
+        MoveStrategy moveStrategy = new ThresholdMoveStrategy(new RandomNumberPicker());
+        return new RacingGame(cars, moveStrategy);
+    }
+
+    private List<Car> createCars(List<String> carNames) {
+        return carNames.stream()
+                .map(Car::new)
+                .collect(Collectors.toList());
+    }
+
+    private int readAttemptsCount() {
+        return AttemptsParser.parseAttempts(inputView.inputAttempts());
+    }
+
+    private List<String> readCarNames() {
+        List<String> carNames = NameParser.parseNames(inputView.inputCarName());
+        validateNoDuplicates(carNames);
+        return carNames;
     }
 
     private void validateNoDuplicates(List<String> carNames) {
