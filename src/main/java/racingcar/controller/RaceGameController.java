@@ -1,6 +1,8 @@
 package racingcar.controller;
 
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 import racingcar.domain.Car;
 import racingcar.domain.MoveStrategy;
@@ -26,6 +28,7 @@ public class RaceGameController {
 
     public void run() {
         List<String> carNames = NameParser.parseNames(inputView.inputCarName());
+        validateNoDuplicates(carNames);
         int attempts = AttemptsParser.parseAttempts(inputView.inputAttempts());
 
         List<Car> cars = carNames.stream()
@@ -43,5 +46,12 @@ public class RaceGameController {
 
         List<String> winners = WinnerSelection.selectByMaxPosition(gameHistory);
         outputView.printWinners(winners);
+    }
+
+    private void validateNoDuplicates(List<String> carNames) {
+        Set<String> uniqueNames = new HashSet<>(carNames);
+        if (uniqueNames.size() < carNames.size()) {
+            throw new IllegalArgumentException("ERROR: 자동차 이름은 중복될 수 없습니다.");
+        }
     }
 }
