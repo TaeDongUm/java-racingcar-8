@@ -62,4 +62,37 @@ public class RacingGameTest {
                 );
     }
 
+    @DisplayName("각 라운드에서 모든 자동차에 이동 판단이 정확히 1회 적용된다 (라운드 간 위치 증가는 항상 +1)")
+    @Test
+    void everyRound_Applies_Exactly_OncePerCar() {
+
+        List<Car> cars = List.of(new Car("pobi"), new Car("won"), new Car("jun"));
+        RacingGame game = new RacingGame(cars, new AlwaysTrueMoveStrategy());
+        int attempts = 3;
+
+        game.raceStart(attempts);
+
+        List<List<CarGameState>> snaps = game.snapshots();
+        assertThat(snaps).hasSize(attempts); // 라운드 수 = 스냅샷 수
+
+        // 라운드 간 델타가 각 자동차마다 항상 +1인지 확인
+        for (int r = 1; r < snaps.size(); r++) {
+            List<CarGameState> prev = snaps.get(r - 1);
+            List<CarGameState> curr = snaps.get(r);
+
+            // 입력 순서 유지 가정 하에 같은 인덱스끼리 비교
+            assertThat(curr).hasSameSizeAs(prev);
+            for (int i = 0; i < curr.size(); i++) {
+                CarGameState p = prev.get(i);
+                CarGameState c = curr.get(i);
+
+                // 동일한 자동차(이름) 이어야 한다
+                assertThat(c.getName()).isEqualTo(p.getName());
+
+                // Always-true 전략이므로 한 라운드에서 정확히 1칸만 증가해야 함
+                assertThat(c.getPosition() - p.getPosition()).isEqualTo(1);
+            }
+        }
+    }
+
 }
