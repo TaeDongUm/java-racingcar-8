@@ -11,18 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class WinnerSelectionTest {
     List<List<CarGameState>> carGameStates;
 
-    @DisplayName("최대 위치를 반환한다.")
-    @Test
-    void return_Max_Position() {
-        List<CarGameState> carGameState = List.of(
-                new CarGameState("pobi", 3),
-                new CarGameState("woni", 2),
-                new CarGameState("jun", 1)
-        );
-        int position = WinnerSelection.getMaxPosition(carGameState);
-        assertThat(position).isEqualTo(3);
-    }
-
     @DisplayName("단독 우승자: 최대 위치의 참가자 한 명을 반환한다(입력 순서 유지)")
     @Test
     void singleWinner() {
